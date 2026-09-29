@@ -56,6 +56,6 @@ ht_iberia_unify_spain = {
 	}
 
 	events = {
-		ht_iberia_iberia.2
+		ht_iberia.2
 	}
 }
