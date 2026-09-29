@@ -1,0 +1,255 @@
+﻿namespace = ht_iberia_spain
+
+ht_iberia_spain.1 = { # Easier Iberian Wedding
+	type = country_event
+	title = ht_iberia_ai_only.title
+	desc = ht_iberia_ai_only.desc
+
+	fire_only_once = yes
+
+	dynamic_historical_event = {
+		tag = CAS
+		tag = SPA
+		from = 1444.1.1
+		to = 1836.1.1
+		monthly_chance = 5
+	}
+
+	illustration_tags = {
+		10 = happy
+		10 = interior
+	}
+
+	trigger = {
+		is_ai = yes
+		c:ARA = { is_ai = yes }
+		not = { in_union_with = c:ARA }
+		or = {
+			and = {
+				ruler ?= { is_female = yes is_regent = no }
+				c:ARA = { ruler ?= { is_female = no is_regent = no } }
+			}
+			and = {
+				ruler ?= { is_female = no is_regent = no }
+				c:ARA = { ruler ?= { is_female = yes is_regent = no } }
+			}
+		}
+	}
+
+	immediate = {
+		ruler ?= { save_scope_as = castile_ruler }
+	}
+
+	option = { #PU
+		name = ht_iberia_ai_only.a
+		historical_option = yes
+		c:ARA = {
+			set_new_ruler = scope:castile_ruler
+			make_subject_of = {
+				target = root
+				type = subject_type:fiefdom
+			}
+		}
+		ai_chance = {
+			factor = 75
+		}
+	}
+	option = { #No PU
+		name = ht_iberia_ai_only.b
+		ai_chance = {
+			factor = 25
+		}
+	}
+}
+
+ht_iberia_spain.2 = { # Spain
+	type = country_event
+	title = ht_iberia_ai_only.title
+	desc = ht_iberia_ai_only.desc
+
+	illustration_tags = {
+		10 = happy
+		10 = interior
+	}
+
+	option = { # Form Spain
+		name = ht_iberia_ai_only.a
+		historical_option = yes
+
+		annex_country = {
+			country = c:ARA
+			reason = Diplomatic
+			transfer = yes
+		}
+		form_country = formable_country:SPA_f
+
+		ai_chance = {
+			base = 100
+		}
+	}
+	
+	option = { # Don't Form Spain
+		name = ht_iberia_ai_only.b
+
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+ht_iberia_spain.3 = { # Take back Granada
+	type = country_event
+	title = ht_iberia_ai_only.title
+	desc = ht_iberia_ai_only.desc
+
+	illustration_tags = {
+        10 = armed
+        10 = exterior
+	}
+
+    trigger = {
+        is_ai = yes
+		has_or_had_tag = CAS
+		current_year > 1450
+        region:iberia_region = {
+            any_location_in_region = {
+				owner ?= {
+					top_overlord_or_this = {
+						religion.group != religion_group:christian
+					}
+				}
+            }
+        }
+    }
+
+	immediate = {
+        region:iberia_region = {
+            random_location_in_region = {
+				limit = {
+                	owner ?= {
+						top_overlord_or_this = {
+							religion.group != religion_group:christian
+						}
+					}
+				}
+				owner ?= {
+					save_scope_as = target
+				}
+            }
+        }
+	}
+
+	option = {
+		name = ht_iberia_ai_only.a
+		declare_war_with_cb = {
+			target = scope:target
+			type = casus_belli:cb_ht_iberia_reconquista
+		}
+		ai_chance = {
+			base = 75
+		}
+	}
+
+	option = {
+		name = ht_iberia_ai_only.b
+		add_casus_belli = {
+			type = casus_belli:cb_ht_iberia_reconquista
+			target = scope:target
+		}
+		ai_chance = {
+			base = 25
+		}
+	}
+}
+
+ht_iberia_spain.4 = { # Auto-peace for Granada & Andalusia
+	type = country_event
+	title = ht_iberia_ai_only.title
+	desc = ht_iberia_ai_only.desc
+
+	illustration_tags = {
+        10 = armed
+        10 = exterior
+	}
+
+    trigger = {
+        is_ai = yes
+		has_or_had_tag = CAS
+		any_current_war = {
+			casus_belli ?= casus_belli:cb_ht_iberia_reconquista
+		}
+		scope:target ?= {
+			area = area:granada_area
+			is_capital = yes
+			owner ?= {
+				is_ai = yes
+				religion.group = religion_group:muslim
+				any_current_war = {
+					casus_belli ?= casus_belli:cb_ht_iberia_reconquista
+				}
+				is_at_war_with = root
+			}
+		}
+    }
+
+	option = {
+		name = ht_iberia_ai_only.a
+		region:iberia_region = {
+			every_location_in_region = {
+				limit = {
+					or = {
+						area = area:granada_area
+						area = area:andalusia_area
+					}
+					owner ?= {
+						is_ai = yes
+						religion.group = religion_group:muslim
+						any_current_war = {
+							casus_belli ?= casus_belli:cb_ht_iberia_reconquista
+						}
+						is_at_war_with = root
+					}
+					or = {
+						controller ?= root.top_overlord_or_this
+						controller ?= {
+							is_fighting_war_together_with = scope:actor
+						}
+						controller ?= {
+							has_mutual_scripted_relation = {
+								type = relation_type:alliance
+								target = root
+							}
+						}
+					}
+				}
+				owner ?= {
+					save_scope_as = enemy
+					random_current_war = {
+						limit = {
+							casus_belli ?= casus_belli:cb_ht_iberia_reconquista
+							is_on_opposite_sides = {
+								country = root
+								target = scope:enemy
+							}
+						}
+						save_scope_as = war
+					}
+				}
+				change_location_owner = root
+			}
+		}
+		scope:war = {
+			white_peace = this
+		}
+		ai_chance = {
+			base = 100
+		}
+	}
+
+	option = {
+		name = ht_iberia_ai_only.b
+		ai_chance = {
+			base = 0
+		}
+	}
+}

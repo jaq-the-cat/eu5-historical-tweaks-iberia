@@ -1,0 +1,32 @@
+﻿#root is country
+#scope:target is the target 
+
+
+cb_ht_iberia_reconquista = {
+	create_visible = {
+		always = no
+	}
+	create_enabled = {
+		always = no
+	}
+
+	ai_cede_location_desire = {
+		value = {
+			if = {
+				limit = { scope:location.region = region:iberia_region }
+				value = 1000
+			}
+			else = {
+				value = -1000
+			}
+		}
+	}
+	ai_subjugation_desire = -1000
+
+	custom_tags = { religious_casus_belli }
+
+	war_goal_type = wg_ht_iberia_reconquista
+
+	allow_ports_for_reach_ai = yes
+	additional_war_enthusiasm = 0.1
+}

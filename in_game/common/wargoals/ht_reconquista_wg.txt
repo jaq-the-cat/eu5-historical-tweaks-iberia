@@ -1,0 +1,18 @@
+﻿wg_ht_iberia_reconquista = {
+	type = superiority
+	war_name = "RECONQUISTA_WAR_NAME" # uses second
+	
+	attacker = {
+		conquer_cost = 0.5
+		allowed_locations = {
+			region = region:iberia_region
+		}
+		allowed_subjugation = { always = no }
+	}
+
+	defender = {
+		conquer_cost = 1.0
+	}
+
+	ticking_war_score = 0.25
+}

@@ -1,0 +1,61 @@
+yearly_country_pulse = {
+	on_actions = {
+		ht_iberia_yearly_pulse
+	}
+}
+
+ht_iberia_yearly_pulse = {
+	events = {
+		ht_iberia_core_return.1
+		ht_iberia_core_return.2
+		ht_iberia_core_return.3
+	}
+	random_events = {
+		10 = ht_iberia_spain.3
+
+		chance_to_happen = 25
+	}
+}
+
+on_siege_won = {
+	on_actions = {
+		ht_iberia_location_occupied
+	}
+}
+
+on_location_occupied = {
+	on_actions = {
+		ht_iberia_location_occupied
+	}
+}
+
+ht_iberia_location_occupied = {
+	events = {
+		ht_iberia_spain.4
+	}
+}
+
+on_ruler_death = {
+	on_actions = {
+		ht_iberia_unify_spain
+	}
+}
+
+ht_iberia_unify_spain = {
+	trigger = {
+		tag = CAS
+		is_ai = yes
+		c:ARA = { is_ai = yes }
+		or = {
+			in_union_with = c:ARA
+			c:ARA = {
+				is_subject_of = c:CAS
+				is_subject_type = fiefdom
+			}
+		}
+	}
+
+	events = {
+		ht_iberia_iberia.2
+	}
+}

@@ -1,0 +1,143 @@
+﻿namespace = ht_iberia_aragon
+
+# Aragon Sicily PU
+ht_iberia_aragon.1 = {
+	type = country_event
+	title = ht_iberia_ai_only.title
+	desc = ht_iberia_ai_only.desc
+
+	fire_only_once = yes
+
+	dynamic_historical_event = {
+		tag = SIC
+		from = 1337.1.1
+		to = 1500.1.1
+		monthly_chance = 25
+	}
+
+	illustration_tags = {
+		10 = happy
+		10 = interior
+	}
+
+	trigger = {
+		is_ai = yes
+		is_subject = no
+		government_type ?= government_type:monarchy
+		c:ARA = {
+			is_ai = yes
+			has_ruler = yes
+			government_type ?= government_type:monarchy
+		}
+		not = { in_union_with = c:ARA }
+		# both are catholic
+		c:ARA = { religion = religion:catholic }
+		religion = religion:catholic
+		# rules have opposite genders
+		or = {
+			and = {
+				ruler ?= { is_female = yes is_regent = no }
+				c:ARA = { ruler ?= { is_female = no is_regent = no } }
+			}
+			and = {
+				ruler ?= { is_female = no is_regent = no }
+				c:ARA = { ruler ?= { is_female = yes is_regent = no } }
+			}
+		}
+	}
+
+	immediate = {
+		c:ARA = { ruler ?= { save_scope_as = aragon_ruler } }
+	}
+
+	option = { # Get PU'd
+		name = ht_iberia_ai_only.a
+		historical_option = yes
+
+		set_new_ruler = scope:aragon_ruler
+		make_subject_of = {
+			target = c:ARA
+			type = subject_type:fiefdom
+		}
+		ai_chance = {
+			factor = 75
+		}
+	}
+	option = { # No PU
+		name = ht_iberia_ai_only.b
+		ai_chance = {
+			factor = 25
+		}
+	}
+}
+
+# Aragon Naples PU
+ht_iberia_aragon.2 = {
+	type = country_event
+	title = ht_iberia_ai_only.title
+	desc = ht_iberia_ai_only.desc
+
+	fire_only_once = yes
+
+	dynamic_historical_event = {
+		tag = NAP
+		from = 1337.1.1
+		to = 1500.1.1
+		monthly_chance = 25
+	}
+
+	illustration_tags = {
+		10 = happy
+		10 = interior
+	}
+
+	trigger = {
+		is_ai = yes
+		is_subject = no
+		government_type ?= government_type:monarchy
+		c:ARA = {
+			is_ai = yes
+			has_ruler = yes
+			government_type ?= government_type:monarchy
+		}
+		not = { in_union_with = c:ARA }
+		# both are catholic
+		c:ARA = { religion = religion:catholic }
+		religion = religion:catholic
+		# rules have opposite genders
+		or = {
+			and = {
+				ruler ?= { is_female = yes is_regent = no }
+				c:ARA = { ruler ?= { is_female = no is_regent = no } }
+			}
+			and = {
+				ruler ?= { is_female = no is_regent = no }
+				c:ARA = { ruler ?= { is_female = yes is_regent = no } }
+			}
+		}
+	}
+
+	immediate = {
+		c:ARA = { ruler ?= { save_scope_as = aragon_ruler } }
+	}
+
+	option = { # Get PU'd
+		name = ht_iberia_ai_only.a
+		historical_option = yes
+
+		set_new_ruler = scope:aragon_ruler
+		make_subject_of = {
+			target = c:ARA
+			type = subject_type:fiefdom
+		}
+		ai_chance = {
+			factor = 75
+		}
+	}
+	option = { # No PU
+		name = ht_iberia_ai_only.b
+		ai_chance = {
+			factor = 25
+		}
+	}
+}

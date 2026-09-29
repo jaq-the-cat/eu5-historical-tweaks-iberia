@@ -1,0 +1,15 @@
+﻿l_english:
+ ht_iberia_ai_only.title: "AI Only Event"
+ ht_iberia_ai_only.desc: "This event should be for AI only. How are you reading this?"
+ ht_iberia_ai_only.a: "Yes"
+ ht_iberia_ai_only.b: "No"
+
+ # Reconquista
+ cb_ht_iberia_reconquista: "Reconquista"
+ cb_ht_iberia_reconquista_desc: "Iberia must be united in the Christian faith, and it falls upon our shoulders to lead us in this crusade against our heathen enemies!"
+ RECONQUISTA_WAR_NAME: "The $NUM$$ORDER$ Reconquista War against $SECONDNAME$"
+ war_goal_wg_ht_iberia_reconquista: "$generic_war_goal_superiority$"
+ war_goal_wg_ht_iberia_reconquista_desc: "$generic_war_goal_superiority_desc$"
+
+ opinion_historical_ally: "Historical Ally"
+ opinion_historical_friend: "Historical Friend"

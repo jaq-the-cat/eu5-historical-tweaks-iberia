@@ -1,0 +1,210 @@
+﻿namespace = ht_iberia_core_return
+
+# Iberians return French land
+ht_iberia_core_return.1 = {
+	type = country_event
+	title = ht_iberia_ai_only.title
+	desc = ht_iberia_ai_only.desc
+
+	illustration_tags = {
+        10 = happy
+        10 = interior
+	}
+
+	trigger = {
+		is_ai = yes
+		capital.region = region:iberia_region
+		religion.group = religion_group:christian
+		country_exists = c:FRA
+		any_owned_location = {
+			region = region:france_region
+			not = { area = area:provence_area }
+		}
+	}
+
+	option = { # Return Land
+		name = ht_iberia_ai_only.a
+		historical_option = yes
+		
+		region:france_region = {
+			every_location_in_region = {
+				limit = {
+					owner = root
+					not = { area = area:provence_area }
+				}
+				change_location_owner = c:FRA
+			}
+		}
+
+		ai_chance = {
+			base = 100
+		}
+	}
+	
+	option = { # Don't Return Land
+		name = ht_iberia_ai_only.b
+
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+# France return Catalan and Aragonese land
+ht_iberia_core_return.2 = {
+	type = country_event
+	title = ht_iberia_ai_only.title
+	desc = ht_iberia_ai_only.desc
+
+	illustration_tags = {
+        10 = happy
+        10 = interior
+	}
+
+	trigger = {
+		is_ai = yes
+		capital.region = region:france_region
+		religion.group = religion_group:christian
+		or = {
+			country_exists = c:SPA
+			country_exists = c:ARA
+			country_exists = c:CAS
+		}
+		any_owned_location = {
+			or = {
+				area = area:aragon_area
+				area = area:valencia_area
+			}
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = { country_exists = c:SPA }
+			c:SPA = { save_scope_as = target_country }
+		}
+		else_if = {
+			limit = { country_exists = c:ARA }
+			c:ARA = { save_scope_as = target_country }
+		}
+		else_if = {
+			limit = { country_exists = c:CAS }
+			c:CAS = { save_scope_as = target_country }
+		}
+	}
+
+	option = { # Return Land
+		name = ht_iberia_ai_only.a
+		historical_option = yes
+		
+		region:iberia_region = {
+			every_location_in_region = {
+				limit = {
+					owner = root
+					or = {
+						area = area:aragon_area
+						area = area:valencia_area
+					}
+				}
+				change_location_owner = scope:target_country
+			}
+		}
+
+		ai_chance = {
+			base = 100
+		}
+	}
+	
+	option = { # Don't Return Land
+		name = ht_iberia_ai_only.b
+
+		ai_chance = {
+			base = 0
+		}
+	}
+}
+
+# France return Castillian, Galician and Leonese land
+ht_iberia_core_return.3 = {
+	type = country_event
+	title = ht_iberia_ai_only.title
+	desc = ht_iberia_ai_only.desc
+
+	illustration_tags = {
+        10 = happy
+        10 = interior
+	}
+
+	trigger = {
+		is_ai = yes
+		capital.region = region:france_region
+		religion.group = religion_group:christian
+		or = {
+			country_exists = c:SPA
+			country_exists = c:CAS
+			country_exists = c:ARA
+		}
+		any_owned_location = {
+			region = region:iberia_region
+			not = {
+				area = area:aragon_area
+				area = area:valencia_area
+				area = area:north_portugal_area
+				area = area:south_portugal_area
+				area = area:navarre_area
+				area = area:catalonia_area
+				area = area:balearics_area
+			}
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = { country_exists = c:SPA }
+			c:SPA = { save_scope_as = target_country }
+		}
+		else_if = {
+			limit = { country_exists = c:CAS }
+			c:CAS = { save_scope_as = target_country }
+		}
+		else_if = {
+			limit = { country_exists = c:ARA }
+			c:ARA = { save_scope_as = target_country }
+		}
+	}
+
+	option = { # Return Land
+		name = ht_iberia_ai_only.a
+		historical_option = yes
+		
+		region:iberia_region = {
+			every_location_in_region = {
+				limit = {
+					owner = root
+					not = {
+						area = area:aragon_area
+						area = area:valencia_area
+						area = area:north_portugal_area
+						area = area:south_portugal_area
+						area = area:navarre_area
+						area = area:catalonia_area
+						area = area:balearics_area
+					}
+				}
+				change_location_owner = scope:target_country
+			}
+		}
+
+		ai_chance = {
+			base = 100
+		}
+	}
+	
+	option = { # Don't Return Land
+		name = ht_iberia_ai_only.b
+
+		ai_chance = {
+			base = 0
+		}
+	}
+}
